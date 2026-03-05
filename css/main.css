@@ -1,0 +1,63 @@
+body {
+    background-color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+header {
+    height: 100px;
+}
+
+header img {
+    height: 50px;
+    width: 50px;
+    margin: 16px;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px;
+}
+
+section {
+    background-color: #eaf2f9;
+    min-height: 500px;
+    min-width: 425px;
+    border-radius: 32px;
+    border: 0.5px solid black;
+}
+
+h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+}
+
+section div {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 32px;
+    border-radius: 32px 32px 0px 0px;
+}
+
+section div#para-fazer {
+    background-color: rgb(238, 164, 80);
+}
+
+section div#fazendo {
+    background-color: rgb(156, 67, 240);
+}
+
+section div#feito {
+    background-color: rgb(67, 240, 104);
+}
+
+.botao-adicionar {
+    display: contents;
+}
+
+.botao-adicionar img{
+    height: 30px;
+    width: 30px;
+}
