@@ -41,23 +41,52 @@ section div {
     border-radius: 32px 32px 0px 0px;
 }
 
-section div#para-fazer {
+section input {
+    margin: 16px 16px 0px;
+    padding: 16px;
+    line-height: normal;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    border-radius: 16px 16px 0px 16px;
+    border-style: none;
+    width: stretch;
+}
+
+li {
+    margin: 16px;
+    padding: 16px;
+    line-height: normal;
+    border-radius: 16px 16px 0px 16px;
+}
+
+section div#para-fazer, 
+section input#para-fazer-input,
+ul#lista-para-fazer li {
     background-color: rgb(238, 164, 80);
 }
 
-section div#fazendo {
+section div#fazendo,
+section input#fazendo-input,
+ul#lista-fazendo li {
     background-color: rgb(156, 67, 240);
 }
 
-section div#feito {
+section div#feito,
+section input#feito-input,
+ul#lista-feito li {
     background-color: rgb(67, 240, 104);
 }
 
 .botao-adicionar {
     display: contents;
+    cursor: pointer;
 }
 
 .botao-adicionar img{
     height: 30px;
     width: 30px;
+}
+
+.esconder {
+    display: none;
 }
