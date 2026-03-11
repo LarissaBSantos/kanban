@@ -11,8 +11,20 @@ function criarElementoInput(classe, valor) {
     input.classList.add("nova-tarefa", classe);
     input.type = 'text';
     input.value = valor;
+    input.id = "editar-tarefa";
 
     return input;
+}
+
+function confimarAcaoInput(input, callback) {
+    input.addEventListener("blur", () => {
+        callback();
+    })
+    input.addEventListener("keydown", (evento) => {
+        if(evento.key == "Enter"){
+            callback();
+        }
+    })
 }
 
 function inicializarLista(identificador) {
@@ -47,13 +59,8 @@ function adicionarTarefa(tarefa, lista, identificadorDaLista) {
 }
 
 export function adicionarEventListenerEmInputAdicionar(input, lista, identificador){
-    input.addEventListener("blur", () => {
+    confimarAcaoInput(input, () => {
         adicionarTarefa(input.value, lista, identificador);
-    });
-    input.addEventListener("keydown", (evento) => {
-        if (evento.key == "Enter") {
-            adicionarTarefa(input.value, lista, identificador);
-        }
     });
 }
 
@@ -64,33 +71,33 @@ function editarTarefa(tarefaEditada, lista, indice, identificadorDaLista) {
     location.reload();
 }
 
-// function finalizarEdicao(li, input, valorAtual) {
-//     li.innerHTML = valorAtual;
-//     li.removeChild(input);
-//     li.style.display = "list-item";
-// }
+function adicionarEventListenerEmInputEditar(input, li, valorAtual, lista, identificador, ){
+    confimarAcaoInput(input, () => {
+        editarTarefa(input.value, lista, li.id, identificador);
+        removerInputDeLi(li, valorAtual);    
+    });
+}
 
-function adicionarEventListenerEmInputEditar(input, lista, indice, identificador){
-    input.addEventListener("blur", () => {
-        editarTarefa(input.value, lista, indice, identificador);
-    });
-    input.addEventListener("keydown", (evento) => {
-        if (evento.key == "Enter") {
-            editarTarefa(input.value, lista, indice, identificador);
-        }
-    });
+function adicionarInputEmLi(input, li) {
+    li.innerText = '';
+    li.appendChild(input);
+    li.style.display = "contents";
+    input.focus();
+}
+
+function removerInputDeLi(li, valor) {
+    li.innerText = valor;
+    li.style.display = "";
 }
 
 export function adicionarEventListenerEmLi(idUl, classeInput, lista, identificador) {
     document.querySelectorAll(idUl).forEach((li) => {
         li.addEventListener("dblclick", () => {
+            if (li.querySelector('input')) return;
+            const valorAtual = li.innerText;
             const input = criarElementoInput(classeInput, li.innerText);
-            li.innerHTML = '';
-            li.appendChild(input);
-            li.style.display = "contents";
-            input.focus();
-            
-            adicionarEventListenerEmInputEditar(input, lista, li.id, identificador);
+            adicionarInputEmLi(input, li);
+            adicionarEventListenerEmInputEditar(input, li, valorAtual, lista, identificador);
         });
     });
 }
