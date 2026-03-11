@@ -1,4 +1,7 @@
-import { pegarLista, mostrarLista, adicionarEventListenerEmInput, mostrarInput } from './functions.js';
+import { pegarLista, mostrarLista, adicionarEventListenerEmInputAdicionar, mostrarInput,
+         adicionarEventListenerEmLi 
+    
+} from './functions.js';
 
 const paraFazerInput = document.getElementById("para-fazer-input");
 const fazendoInput = document.getElementById("fazendo-input");
@@ -20,6 +23,10 @@ mostrarInput("para-fazer-btn", paraFazerInput);
 mostrarInput("fazendo-btn", fazendoInput);
 mostrarInput("feito-btn", feitoInput);
 
-adicionarEventListenerEmInput(paraFazerInput, listaParaFazer, "listaParaFazer");
-adicionarEventListenerEmInput(fazendoInput, listaFazendo, "listaFazendo");
-adicionarEventListenerEmInput(feitoInput, listaFeito, "listaFeito");
+adicionarEventListenerEmInputAdicionar(paraFazerInput, listaParaFazer, "listaParaFazer");
+adicionarEventListenerEmInputAdicionar(fazendoInput, listaFazendo, "listaFazendo");
+adicionarEventListenerEmInputAdicionar(feitoInput, listaFeito, "listaFeito");
+
+adicionarEventListenerEmLi("#lista-para-fazer li", "para-fazer-bg", listaParaFazer, "listaParaFazer");
+adicionarEventListenerEmLi("#lista-fazendo li", "fazendo-bg", listaFazendo, "listaFazendo");
+adicionarEventListenerEmLi("#lista-feito li", "feito-bg", listaFeito, "listaFeito");
