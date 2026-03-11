@@ -59,20 +59,20 @@ li {
     border-radius: 16px 16px 0px 16px;
 }
 
-section div#para-fazer, 
-section input#para-fazer-input,
+.para-fazer-bg,
+input#para-fazer-input,
 ul#lista-para-fazer li {
     background-color: rgb(238, 164, 80);
 }
 
-section div#fazendo,
-section input#fazendo-input,
+.fazendo-bg,
+input#fazendo-input,
 ul#lista-fazendo li {
     background-color: rgb(156, 67, 240);
 }
 
-section div#feito,
-section input#feito-input,
+.feito-bg,
+input#feito-input,
 ul#lista-feito li {
     background-color: rgb(67, 240, 104);
 }
