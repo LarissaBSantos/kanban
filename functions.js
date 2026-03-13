@@ -42,12 +42,13 @@ export function pegarLista(identificador) {
 
 export function mostrarLista(lista, ul) {
     if(lista.length != 0) 
-        ul.innerHTML = lista.map((tarefa, indice) => `<li id="${indice}">${tarefa}<img src="img/trash.png" alt="Icone de lixeira"></li>`).join("");
+        ul.innerHTML = lista.map((tarefa, indice) => `<li id="${indice}">${tarefa}<img class="lixeira" src="img/trash.png" alt="Icone de lixeira"></li>`).join("");
 }
 
 export function mostrarInput(identificadorBotao, input){
     document.getElementById(identificadorBotao).addEventListener("click", () => {
         input.classList.remove('esconder');
+        input.focus();
     });
 }
 
@@ -86,7 +87,7 @@ function adicionarInputEmLi(input, li) {
 }
 
 function removerInputDeLi(li, valor) {
-    li.innerHTML = `${valor}<img src="img/trash.png" alt="Icone de lixeira"></img>`;
+    li.innerHTML = `${valor}<img lass="lixeira" src="img/trash.png" alt="Icone de lixeira"></img>`;
     li.style.display = "";
 }
 
@@ -98,6 +99,21 @@ export function adicionarEventListenerEmLi(idUl, classeInput, lista, identificad
             const input = criarElementoInput(classeInput, li.innerText);
             adicionarInputEmLi(input, li);
             adicionarEventListenerEmInputEditar(input, li, valorAtual, lista, identificador);
+        });
+    });
+}
+
+function excluirTarefa(lista, indice, identificadorDaLista) {
+    lista.splice(indice, 1);
+    localStorage.setItem(identificadorDaLista, JSON.stringify(lista));
+    location.reload();
+}
+
+export function adicionarEventListenerEmLixeira(idUl, lista, identificadorDaLista) {
+    document.querySelectorAll(`#${idUl} .lixeira`).forEach(lixeira => {
+        lixeira.addEventListener("click", () => {
+            const li = lixeira.parentElement;
+            excluirTarefa(lista, li.id, identificadorDaLista);
         });
     });
 }

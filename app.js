@@ -1,5 +1,6 @@
 import { pegarLista, mostrarLista, adicionarEventListenerEmInputAdicionar, mostrarInput,
-         adicionarEventListenerEmLi 
+         adicionarEventListenerEmLi, 
+         adicionarEventListenerEmLixeira
     
 } from './functions.js';
 
@@ -30,3 +31,7 @@ adicionarEventListenerEmInputAdicionar(feitoInput, listaFeito, "listaFeito");
 adicionarEventListenerEmLi("#lista-para-fazer li", "para-fazer-bg", listaParaFazer, "listaParaFazer");
 adicionarEventListenerEmLi("#lista-fazendo li", "fazendo-bg", listaFazendo, "listaFazendo");
 adicionarEventListenerEmLi("#lista-feito li", "feito-bg", listaFeito, "listaFeito");
+
+adicionarEventListenerEmLixeira("lista-para-fazer", listaParaFazer, "listaParaFazer");
+adicionarEventListenerEmLixeira("lista-fazendo", listaFazendo, "listaFazendo");
+adicionarEventListenerEmLixeira("lista-feito", listaFeito, "listaFeito");
