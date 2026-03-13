@@ -57,6 +57,8 @@ li {
     padding: 16px;
     line-height: normal;
     border-radius: 16px 16px 0px 16px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .para-fazer-bg,
@@ -85,6 +87,18 @@ ul#lista-feito li {
 .botao-adicionar img{
     height: 30px;
     width: 30px;
+}
+
+li img {
+    height: 20px;
+    width: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease; 
+}
+
+li:hover img{
+    opacity: 1;
+    cursor: pointer;
 }
 
 .esconder {
