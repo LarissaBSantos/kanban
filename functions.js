@@ -42,7 +42,7 @@ export function pegarLista(identificador) {
 
 export function mostrarLista(lista, ul) {
     if(lista.length != 0) 
-        ul.innerHTML = lista.map((tarefa, indice) => `<li id="${indice}">${tarefa}</li>`).join("");
+        ul.innerHTML = lista.map((tarefa, indice) => `<li id="${indice}">${tarefa}<img src="img/trash.png" alt="Icone de lixeira"></li>`).join("");
 }
 
 export function mostrarInput(identificadorBotao, input){
@@ -86,7 +86,7 @@ function adicionarInputEmLi(input, li) {
 }
 
 function removerInputDeLi(li, valor) {
-    li.innerText = valor;
+    li.innerHTML = `${valor}<img src="img/trash.png" alt="Icone de lixeira"></img>`;
     li.style.display = "";
 }
 
