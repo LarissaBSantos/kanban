@@ -140,7 +140,11 @@ export function permitirQueItensSejamSoltos(idUl, lista, identificadorDaLista) {
     ul.addEventListener('drop', (evento) => {
         evento.preventDefault();
         const itemArrastando = document.querySelector('.dragging');
+        const quadroOrigem = itemArrastando.parentElement;
+        const listaOrigem = pegarLista(quadroOrigem.id);
         ul.appendChild(itemArrastando);
+        if(quadroOrigem.id == identificadorDaLista) return;
+        excluirTarefa(quadroOrigem, listaOrigem, itemArrastando.id, quadroOrigem.id);
         adicionarTarefa(itemArrastando.innerText, lista, identificadorDaLista); 
     });
 }
