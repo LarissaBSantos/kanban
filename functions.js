@@ -40,9 +40,11 @@ export function pegarLista(identificador) {
     return inicializarLista(identificador);
 }
 
-export function mostrarLista(lista, ul) {
+export function renderizarLista(ul, lista, identificadorDaLista) {
     if(lista.length != 0) 
-        ul.innerHTML = lista.map((tarefa, indice) => `<li id="${indice}">${tarefa}<img class="lixeira" src="img/trash.png" alt="Icone de lixeira"></li>`).join("");
+        ul.innerHTML = lista.map((tarefa, indice) => `<li id="${indice}" draggable="true">${tarefa}<img class="lixeira" src="img/trash.png" alt="Icone de lixeira"></li>`).join("");
+
+    adicionarEventListenerEmLixeira(ul, lista, identificadorDaLista);
 }
 
 export function mostrarInput(identificadorBotao, input){
@@ -103,17 +105,42 @@ export function adicionarEventListenerEmLi(idUl, classeInput, lista, identificad
     });
 }
 
-function excluirTarefa(lista, indice, identificadorDaLista) {
+function excluirTarefa(ul, lista, indice, identificadorDaLista) {
     lista.splice(indice, 1);
     localStorage.setItem(identificadorDaLista, JSON.stringify(lista));
-    location.reload();
+    renderizarLista(ul, lista, identificadorDaLista);
 }
 
-export function adicionarEventListenerEmLixeira(idUl, lista, identificadorDaLista) {
-    document.querySelectorAll(`#${idUl} .lixeira`).forEach(lixeira => {
+function adicionarEventListenerEmLixeira(ul, lista, identificadorDaLista) {
+    ul.querySelectorAll('.lixeira').forEach(lixeira => {
         lixeira.addEventListener("click", () => {
             const li = lixeira.parentElement;
-            excluirTarefa(lista, li.id, identificadorDaLista);
+            excluirTarefa(ul, lista, li.id, identificadorDaLista);
         });
+    });
+}
+
+export function tornarItensArrastaveis() {
+    document.querySelectorAll("li").forEach(li => {
+        li.addEventListener("dragstart", () => {
+            li.classList.add('dragging');
+        });
+        li.addEventListener("dragend", () => {
+            li.classList.remove('dragging');
+        });
+    });
+}
+
+export function permitirQueItensSejamSoltos(idUl, lista, identificadorDaLista) {
+    const ul = document.querySelector(`#${idUl}`);
+
+    ul.addEventListener('dragover', (evento) => {
+        evento.preventDefault();
+    });
+    ul.addEventListener('drop', (evento) => {
+        evento.preventDefault();
+        const itemArrastando = document.querySelector('.dragging');
+        ul.appendChild(itemArrastando);
+        adicionarTarefa(itemArrastando.innerText, lista, identificadorDaLista); 
     });
 }
