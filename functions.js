@@ -40,9 +40,9 @@ export function pegarLista(identificador) {
     return inicializarLista(identificador);
 }
 
-export function renderizarLista(ul, lista, identificadorDaLista) {
-    if(lista.length != 0) 
-        ul.innerHTML = lista.map((tarefa, indice) => `<li id="${indice}" draggable="true">${tarefa}<img class="lixeira" src="img/trash.png" alt="Icone de lixeira"></li>`).join("");
+export function renderizarLista(lista, identificadorDaLista) {
+    const ul = document.getElementById(identificadorDaLista);
+    ul.innerHTML = lista.map((tarefa, indice) => `<li id="${indice}" draggable="true">${tarefa}<img class="lixeira" src="img/trash.png" alt="Icone de lixeira"></li>`).join("");
 
     adicionarEventListenerEmLixeira(ul, lista, identificadorDaLista);
 }
@@ -54,16 +54,22 @@ export function mostrarInput(identificadorBotao, input){
     });
 }
 
+function esconderInput(input){
+    input.value = '';
+    input.classList.add('esconder');
+}
+
 function adicionarTarefa(tarefa, lista, identificadorDaLista) {
     if(tarefaEstaVazia(tarefa)) return;
     lista.push(tarefa);
     localStorage.setItem(identificadorDaLista, JSON.stringify(lista));
-    location.reload();
+    renderizarLista(lista, identificadorDaLista);
 }
 
 export function adicionarEventListenerEmInputAdicionar(input, lista, identificador){
     confimarAcaoInput(input, () => {
         adicionarTarefa(input.value, lista, identificador);
+        esconderInput(input);
     });
 }
 
@@ -93,8 +99,8 @@ function removerInputDeLi(li, valor) {
     li.style.display = "";
 }
 
-export function adicionarEventListenerEmLi(idUl, classeInput, lista, identificador) {
-    document.querySelectorAll(idUl).forEach((li) => {
+export function adicionarEventListenerEmLi(classeInput, lista, identificador) {
+    document.querySelectorAll(`#${identificador} li`).forEach((li) => {
         li.addEventListener("dblclick", () => {
             if (li.querySelector('input')) return;
             const valorAtual = li.innerText;
@@ -105,17 +111,17 @@ export function adicionarEventListenerEmLi(idUl, classeInput, lista, identificad
     });
 }
 
-function excluirTarefa(ul, lista, indice, identificadorDaLista) {
+function excluirTarefa(lista, indice, identificadorDaLista) {
     lista.splice(indice, 1);
     localStorage.setItem(identificadorDaLista, JSON.stringify(lista));
-    renderizarLista(ul, lista, identificadorDaLista);
+    renderizarLista(lista, identificadorDaLista);
 }
 
 function adicionarEventListenerEmLixeira(ul, lista, identificadorDaLista) {
     ul.querySelectorAll('.lixeira').forEach(lixeira => {
         lixeira.addEventListener("click", () => {
             const li = lixeira.parentElement;
-            excluirTarefa(ul, lista, li.id, identificadorDaLista);
+            excluirTarefa(lista, li.id, identificadorDaLista);
         });
     });
 }
@@ -131,8 +137,8 @@ export function tornarItensArrastaveis() {
     });
 }
 
-export function permitirQueItensSejamSoltos(idUl, lista, identificadorDaLista) {
-    const ul = document.querySelector(`#${idUl}`);
+export function permitirQueItensSejamSoltos(lista, identificadorDaLista) {
+    const ul = document.querySelector(`#${identificadorDaLista}`);
 
     ul.addEventListener('dragover', (evento) => {
         evento.preventDefault();
@@ -144,7 +150,7 @@ export function permitirQueItensSejamSoltos(idUl, lista, identificadorDaLista) {
         const listaOrigem = pegarLista(quadroOrigem.id);
         ul.appendChild(itemArrastando);
         if(quadroOrigem.id == identificadorDaLista) return;
-        excluirTarefa(quadroOrigem, listaOrigem, itemArrastando.id, quadroOrigem.id);
+        excluirTarefa(listaOrigem, itemArrastando.id, quadroOrigem.id);
         adicionarTarefa(itemArrastando.innerText, lista, identificadorDaLista); 
     });
 }

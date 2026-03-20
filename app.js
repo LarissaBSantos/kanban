@@ -1,6 +1,9 @@
-import { pegarLista, mostrarLista, adicionarEventListenerEmInputAdicionar, mostrarInput,
+import { pegarLista, renderizarLista, 
+         adicionarEventListenerEmInputAdicionar, 
+         mostrarInput,
          adicionarEventListenerEmLi, 
-         adicionarEventListenerEmLixeira
+         tornarItensArrastaveis,
+         permitirQueItensSejamSoltos,
     
 } from './functions.js';
 
@@ -12,26 +15,27 @@ const paraFazerUl = document.getElementById("lista-para-fazer");
 const fazendoUl = document.getElementById("lista-fazendo");
 const feitoUl = document.getElementById("lista-feito");
 
-const listaParaFazer = pegarLista("listaParaFazer");
-const listaFazendo = pegarLista("listaFazendo");
-const listaFeito = pegarLista("listaFeito");
+const listaParaFazer = pegarLista("lista-para-fazer");
+const listaFazendo = pegarLista("lista-fazendo");
+const listaFeito = pegarLista("lista-feito");
 
-mostrarLista(listaParaFazer, paraFazerUl);
-mostrarLista(listaFazendo, fazendoUl);
-mostrarLista(listaFeito, feitoUl);
+renderizarLista(listaParaFazer, "lista-para-fazer");
+renderizarLista(listaFazendo, "lista-fazendo");
+renderizarLista(listaFeito, "lista-feito");
 
 mostrarInput("para-fazer-btn", paraFazerInput);
 mostrarInput("fazendo-btn", fazendoInput);
 mostrarInput("feito-btn", feitoInput);
 
-adicionarEventListenerEmInputAdicionar(paraFazerInput, listaParaFazer, "listaParaFazer");
-adicionarEventListenerEmInputAdicionar(fazendoInput, listaFazendo, "listaFazendo");
-adicionarEventListenerEmInputAdicionar(feitoInput, listaFeito, "listaFeito");
+adicionarEventListenerEmInputAdicionar(paraFazerInput, listaParaFazer, "lista-para-fazer");
+adicionarEventListenerEmInputAdicionar(fazendoInput, listaFazendo, "lista-fazendo");
+adicionarEventListenerEmInputAdicionar(feitoInput, listaFeito, "lista-feito");
 
-adicionarEventListenerEmLi("#lista-para-fazer li", "para-fazer-bg", listaParaFazer, "listaParaFazer");
-adicionarEventListenerEmLi("#lista-fazendo li", "fazendo-bg", listaFazendo, "listaFazendo");
-adicionarEventListenerEmLi("#lista-feito li", "feito-bg", listaFeito, "listaFeito");
+adicionarEventListenerEmLi("para-fazer-bg", listaParaFazer, "lista-para-fazer");
+adicionarEventListenerEmLi("fazendo-bg", listaFazendo, "lista-fazendo");
+adicionarEventListenerEmLi("feito-bg", listaFeito, "lista-feito");
 
-adicionarEventListenerEmLixeira("lista-para-fazer", listaParaFazer, "listaParaFazer");
-adicionarEventListenerEmLixeira("lista-fazendo", listaFazendo, "listaFazendo");
-adicionarEventListenerEmLixeira("lista-feito", listaFeito, "listaFeito");
+tornarItensArrastaveis();
+permitirQueItensSejamSoltos(listaParaFazer, "lista-para-fazer");
+permitirQueItensSejamSoltos(listaFazendo, "lista-fazendo");
+permitirQueItensSejamSoltos(listaFeito, "lista-feito");
