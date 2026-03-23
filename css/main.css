@@ -52,6 +52,10 @@ section input {
     width: stretch;
 }
 
+ul {
+    height: 80%;
+}
+
 li {
     margin: 16px;
     padding: 16px;
